@@ -1,5 +1,6 @@
-
 require("dotenv").config()
+require('path')
+
 const express = require('express')
 const cors = require('cors')
 
@@ -10,20 +11,22 @@ const port = process.env.PORT
 server.use(express.json())
 server.use(cors())
 
+server.use(express.static(
+	path.join(__dirname, 'client/build')
+))
 
-server.get('/', (req, res) => {
-	res.json({message: 'Pauline is awesome'})
+
+server.get('*', (req, res) => {
+	res.sendFile(
+		path.join(__dirname, 'client/build', 'index.html')
+	)
 
 })
 
-server.get('/hello', (req, res) => {
+server.get('/api/users', (req, res) => {
 	res.send('<h1> Hi Im Pauline!</h1>')
 })
 
-
-server.use("*", (req, res) => {
-	res.send(`<h1>Project 4-Deployment</h1>`)
-});
 
 
 server.use((err, req, res, next) => {
