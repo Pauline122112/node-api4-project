@@ -10,6 +10,17 @@ const port = process.env.PORT
 server.use(express.json())
 server.use(cors())
 
+
+server.get('/', (req, res) => {
+	res.json({message: 'Pauline is awesome'})
+
+})
+
+server.get('/hello', (req, res) => {
+	res.send('<h1> Hi Im Pauline!</h1>')
+})
+
+
 server.use("*", (req, res) => {
 	res.send(`<h1>Project 4-Deployment</h1>`)
 });
